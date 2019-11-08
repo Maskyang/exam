@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        #mytime {
+            text-align: center;
+        }
+    </style>
+    <script>
+        function two_char(n) {
+            return n >= 10 ? n : "0" + n;
+        }
+        function time_fun() {
+            var sec=0;
+            setInterval(function () {
+                sec++;
+                var date = new Date(0, 0)
+                date.setSeconds(sec);
+                var h = date.getHours(), m = date.getMinutes(), s = date.getSeconds();
+                document.getElementById("mytime").innerText = two_char(h) + ":" + two_char(m) + ":" + two_char(s);
+            }, 1000);
+        }
+
+    </script>
+</head>
+<body>
+<div class="col-xs-12" style="margin-top: 20px">
+    <form class="form-inline">
+        <div class="form-group col-xs-12">
+            <label for="exampleInputName2">部门：</label>
+            <select id="department" class="form-control" style="margin-right: 50px;" name='departmentId'>
+                <option>==请选择==</option>
+                <tr th:each = "exam : ${exams}">
+
+            </select>
+        </div>
+        <div class="form-group col-xs-12">
+            <label for="date">时间：</label>
+            <input class="form-control" id="date" name='date'>
+            <a onclick="ifnull()" class="btn btn-primary">查询</a>
+        </div>
+
+    </form>
+
+
+</div>
+<div class="col-xs-12" id="singlelast">
+
+</div>
+</body>
+
+<script>
+
+    function ifnull(){
+        if($("#department").val()=="==请选择=="){
+            alert("请选择需要查询的部门");
+            return false;
+        }
+        if($("#date").val()==""){
+            alert("请选择需要查询的时间");
+            return false;
+        }
+        var date = $("#date").val();
+        var year=parseInt(date.split("-")[0]);
+        var month=parseInt(date.split("-")[1]);
+        var daycount=getLastDay(year, month); //得到选中月份的最大天数
+
+        $("#singlelast").empty();
+        $("#singlelast").append("<table id='tablesinglelast'></table>")
+        var appendPos=$("#tablesinglelast");
+        //$("#tablesinglelast").bootstrapTable('destroy');
+
+        appendPos.append("<thead><tr><th data-field='employeeName' rowspan='2' id='employeeName' data-valign='middle' data-align='center'>员工姓名</th>" +
+            "<th data-field='exceptionTime' data-valign='middle' rowspan='2' data-align='center'>打卡异常次数</th>" +
+            "<th data-field='lateTime' data-valign='middle' rowspan='2' data-align='center'>迟到打卡次数</th>" +
+            "<th data-field='earlyTime' data-valign='middle' rowspan='2' data-align='center'>早退打卡次数</th>" +
+            "<th data-field='noDutyTime' data-valign='middle' rowspan='2' data-align='center'>缺卡次数</th>" +
+            "<th data-field='workTime' data-valign='middle' rowspan='2' data-align='center'>出勤天数</th></tr><tr></tr></thead>");
+
+
+        for(var i=1;i<=daycount;i++){
+            var appendPos2=$("#tablesinglelast").children().eq(0).children().eq(0).children().eq(i-1);
+            appendPos2.after("<th data-valign='middle' colspan='1' data-formatter='displaycolor' data-align='center'>"+i+"</th>");
+
+        }
+        for(var i=1;i<=daycount;i++){
+            var appendPos3=$("#tablesinglelast").children().eq(0).children().eq(1);
+            var month2=(month>9)?(""+month):("0"+month);
+            var day=(i>9)?(""+i):("0"+i);
+            var heredate = year+"-"+month2+"-"+day;
+            var weekday = new Date(heredate).getDay();
+            text = "";
+            switch (weekday) {
+                case 0:
+                    text = "日";
+                    break;
+                case 1:
+                    text = "一";
+                    break;
+                case 2:
+                    text = "二";
+                    break;
+                case 3:
+                    text = "三";
+                    break;
+                case 4:
+                    text = "四";
+                    break;
+                case 5:
+                    text = "五";
+                    break;
+                case 6:
+                    text = "六";
+                    break;
+            }
+            appendPos3.append("<th data-formatter='displaycolor' data-align='center' data-field='"+year+"-"+month2+"-"+day+"'>"+text+"</th>");
+
+        }
+
+        readyTable();
+        getAttendanceResult();
+    }
+
+    function getLastDay(year,month){
+        var new_year = year;  //取当前的年份
+        var new_month = month++;//取下一个月的第一天，方便计算（最后一天不固定）
+        if(month>12)      //如果当前大于12月，则年份转到下一年
+        {
+            new_month -=12;    //月份减
+            new_year++;      //年份增
+        }
+        var new_date = new Date(new_year,new_month,1);        //取当年当月中的第一天
+        return (new Date(new_date.getTime()-1000*60*60*24)).getDate();//获取当月最后一天日期
+    }
+
+    $('#date').datetimepicker({
+        format: 'yyyy-mm',
+        autoclose : true,
+        startView : 3,
+        minView : 3
+    });
+
+
+</script>
+</html>

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mask.exam.mapper.TblExamMapper" >
+  <resultMap id="BaseResultMap" type="com.mask.exam.domain.TblExam" >
+    <id column="exam_id" property="examId" jdbcType="INTEGER" />
+    <result column="exam_type" property="examType" jdbcType="VARCHAR" />
+    <result column="is_use" property="isUse" jdbcType="VARCHAR" />
+    <result column="is_radio" property="isRadio" jdbcType="VARCHAR" />
+    <result column="exam_detail" property="examDetail" jdbcType="VARCHAR" />
+    <result column="choise_a" property="choiseA" jdbcType="VARCHAR" />
+    <result column="choise_b" property="choiseB" jdbcType="VARCHAR" />
+    <result column="choise_c" property="choiseC" jdbcType="VARCHAR" />
+    <result column="choise_d" property="choiseD" jdbcType="VARCHAR" />
+    <result column="answer" property="answer" jdbcType="VARCHAR" />
+    <result column="answer_detail" property="answerDetail" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    exam_id, exam_type, is_use, is_radio, exam_detail, choise_a, choise_b, choise_c, 
+    choise_d, answer, answer_detail, user_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mask.exam.domain.TblExamExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_exam
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_exam
+    where exam_id = #{examId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_exam
+    where exam_id = #{examId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mask.exam.domain.TblExamExample" >
+    delete from tbl_exam
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mask.exam.domain.TblExam" >
+    insert into tbl_exam (exam_id, exam_type, is_use, 
+      is_radio, exam_detail, choise_a, 
+      choise_b, choise_c, choise_d, 
+      answer, answer_detail, user_id
+      )
+    values (#{examId,jdbcType=INTEGER}, #{examType,jdbcType=VARCHAR}, #{isUse,jdbcType=VARCHAR}, 
+      #{isRadio,jdbcType=VARCHAR}, #{examDetail,jdbcType=VARCHAR}, #{choiseA,jdbcType=VARCHAR}, 
+      #{choiseB,jdbcType=VARCHAR}, #{choiseC,jdbcType=VARCHAR}, #{choiseD,jdbcType=VARCHAR}, 
+      #{answer,jdbcType=VARCHAR}, #{answerDetail,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mask.exam.domain.TblExam" >
+    insert into tbl_exam
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="examId != null" >
+        exam_id,
+      </if>
+      <if test="examType != null" >
+        exam_type,
+      </if>
+      <if test="isUse != null" >
+        is_use,
+      </if>
+      <if test="isRadio != null" >
+        is_radio,
+      </if>
+      <if test="examDetail != null" >
+        exam_detail,
+      </if>
+      <if test="choiseA != null" >
+        choise_a,
+      </if>
+      <if test="choiseB != null" >
+        choise_b,
+      </if>
+      <if test="choiseC != null" >
+        choise_c,
+      </if>
+      <if test="choiseD != null" >
+        choise_d,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+      <if test="answerDetail != null" >
+        answer_detail,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="examId != null" >
+        #{examId,jdbcType=INTEGER},
+      </if>
+      <if test="examType != null" >
+        #{examType,jdbcType=VARCHAR},
+      </if>
+      <if test="isUse != null" >
+        #{isUse,jdbcType=VARCHAR},
+      </if>
+      <if test="isRadio != null" >
+        #{isRadio,jdbcType=VARCHAR},
+      </if>
+      <if test="examDetail != null" >
+        #{examDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="choiseA != null" >
+        #{choiseA,jdbcType=VARCHAR},
+      </if>
+      <if test="choiseB != null" >
+        #{choiseB,jdbcType=VARCHAR},
+      </if>
+      <if test="choiseC != null" >
+        #{choiseC,jdbcType=VARCHAR},
+      </if>
+      <if test="choiseD != null" >
+        #{choiseD,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="answerDetail != null" >
+        #{answerDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mask.exam.domain.TblExamExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_exam
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_exam
+    <set >
+      <if test="record.examId != null" >
+        exam_id = #{record.examId,jdbcType=INTEGER},
+      </if>
+      <if test="record.examType != null" >
+        exam_type = #{record.examType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isUse != null" >
+        is_use = #{record.isUse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isRadio != null" >
+        is_radio = #{record.isRadio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.examDetail != null" >
+        exam_detail = #{record.examDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.choiseA != null" >
+        choise_a = #{record.choiseA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.choiseB != null" >
+        choise_b = #{record.choiseB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.choiseC != null" >
+        choise_c = #{record.choiseC,jdbcType=VARCHAR},
+      </if>
+      <if test="record.choiseD != null" >
+        choise_d = #{record.choiseD,jdbcType=VARCHAR},
+      </if>
+      <if test="record.answer != null" >
+        answer = #{record.answer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.answerDetail != null" >
+        answer_detail = #{record.answerDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_exam
+    set exam_id = #{record.examId,jdbcType=INTEGER},
+      exam_type = #{record.examType,jdbcType=VARCHAR},
+      is_use = #{record.isUse,jdbcType=VARCHAR},
+      is_radio = #{record.isRadio,jdbcType=VARCHAR},
+      exam_detail = #{record.examDetail,jdbcType=VARCHAR},
+      choise_a = #{record.choiseA,jdbcType=VARCHAR},
+      choise_b = #{record.choiseB,jdbcType=VARCHAR},
+      choise_c = #{record.choiseC,jdbcType=VARCHAR},
+      choise_d = #{record.choiseD,jdbcType=VARCHAR},
+      answer = #{record.answer,jdbcType=VARCHAR},
+      answer_detail = #{record.answerDetail,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mask.exam.domain.TblExam" >
+    update tbl_exam
+    <set >
+      <if test="examType != null" >
+        exam_type = #{examType,jdbcType=VARCHAR},
+      </if>
+      <if test="isUse != null" >
+        is_use = #{isUse,jdbcType=VARCHAR},
+      </if>
+      <if test="isRadio != null" >
+        is_radio = #{isRadio,jdbcType=VARCHAR},
+      </if>
+      <if test="examDetail != null" >
+        exam_detail = #{examDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="choiseA != null" >
+        choise_a = #{choiseA,jdbcType=VARCHAR},
+      </if>
+      <if test="choiseB != null" >
+        choise_b = #{choiseB,jdbcType=VARCHAR},
+      </if>
+      <if test="choiseC != null" >
+        choise_c = #{choiseC,jdbcType=VARCHAR},
+      </if>
+      <if test="choiseD != null" >
+        choise_d = #{choiseD,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null" >
+        answer = #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="answerDetail != null" >
+        answer_detail = #{answerDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where exam_id = #{examId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mask.exam.domain.TblExam" >
+    update tbl_exam
+    set exam_type = #{examType,jdbcType=VARCHAR},
+      is_use = #{isUse,jdbcType=VARCHAR},
+      is_radio = #{isRadio,jdbcType=VARCHAR},
+      exam_detail = #{examDetail,jdbcType=VARCHAR},
+      choise_a = #{choiseA,jdbcType=VARCHAR},
+      choise_b = #{choiseB,jdbcType=VARCHAR},
+      choise_c = #{choiseC,jdbcType=VARCHAR},
+      choise_d = #{choiseD,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR},
+      answer_detail = #{answerDetail,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER}
+    where exam_id = #{examId,jdbcType=INTEGER}
+  </update>
+</mapper>

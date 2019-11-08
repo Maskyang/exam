@@ -1,0 +1,629 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>考题管理</title>
+
+    <!-- Bootstrap Core CSS -->
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+
+    <!-- MetisMenu CSS -->
+    <link rel="stylesheet" th:href="@{/css/metisMenu.min.css}">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" th:href="@{/css/dataTables.bootstrap.css}">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/sb-admin-2.css}">
+
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" type="text/css">
+
+    <link rel="stylesheet" th:href="@{/css/boot-crm.css}" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <![endif]-->
+
+</head>
+<style>
+    .table tr td{
+        border:1px solid white;
+        white-space: nowrap;/*控制单行显示*/
+        overflow: hidden;/*超出隐藏*/
+        text-overflow: ellipsis;/*隐藏的字符用省略号表示   IE*/
+        -moz-text-overflow: ellipsis;/*隐藏的字符用省略号表示  火狐*/
+    }
+</style>
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation"
+         style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/filter/examManage">考试系统 v1.0</a>
+        </div>
+        <!-- /.navbar-header -->
+
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown"><a class="dropdown-toggle"
+                                    data-toggle="dropdown" href="#"> <i class="fa fa-envelope fa-fw"></i>
+                <i class="fa fa-caret-down"></i>
+            </a>
+                <ul class="dropdown-menu dropdown-messages">
+                    <li><a href="#">
+                        <div>
+                            <strong>令狐冲</strong> <span class="pull-right text-muted">
+									<em>昨天</em>
+								</span>
+                        </div>
+                        <div>今天晚上向大哥找我吃饭，讨论一下去梅庄的事...</div>
+                    </a></li>
+                    <li class="divider"></li>
+                    <li><a class="text-center" href="#"> <strong>查看全部消息</strong>
+                        <i class="fa fa-angle-right"></i>
+                    </a></li>
+                </ul> <!-- /.dropdown-messages --></li>
+            <!-- /.dropdown -->
+            <li class="dropdown"><a class="dropdown-toggle"
+                                    data-toggle="dropdown" href="#"> <i class="fa fa-tasks fa-fw"></i>
+                <i class="fa fa-caret-down"></i>
+            </a>
+                <ul class="dropdown-menu dropdown-tasks">
+                    <li><a href="#">
+                        <div>
+                            <p>
+                                <strong>任务 1</strong> <span class="pull-right text-muted">完成40%</span>
+                            </p>
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar progress-bar-success"
+                                     role="progressbar" aria-valuenow="40" aria-valuemin="0"
+                                     aria-valuemax="100" style="width: 40%">
+                                    <span class="sr-only">完成40%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">
+                        <div>
+                            <p>
+                                <strong>任务 2</strong> <span class="pull-right text-muted">完成20%</span>
+                            </p>
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar progress-bar-info" role="progressbar"
+                                     aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                                     style="width: 20%">
+                                    <span class="sr-only">完成20%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a></li>
+                    <li class="divider"></li>
+                    <li><a class="text-center" href="#"> <strong>查看所有任务</strong>
+                        <i class="fa fa-angle-right"></i>
+                    </a></li>
+                </ul> <!-- /.dropdown-tasks --></li>
+            <!-- /.dropdown -->
+            <li class="dropdown"><a class="dropdown-toggle"
+                                    data-toggle="dropdown" href="#"> <i class="fa fa-bell fa-fw"></i>
+                <i class="fa fa-caret-down"></i>
+            </a>
+                <ul class="dropdown-menu dropdown-alerts">
+                    <li><a href="#">
+                        <div>
+                            <i class="fa fa-comment fa-fw"></i> 新回复 <span
+                                class="pull-right text-muted small">4分钟之前</span>
+                        </div>
+                    </a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">
+                        <div>
+                            <i class="fa fa-envelope fa-fw"></i> 新消息 <span
+                                class="pull-right text-muted small">4分钟之前</span>
+                        </div>
+                    </a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">
+                        <div>
+                            <i class="fa fa-tasks fa-fw"></i> 新任务 <span
+                                class="pull-right text-muted small">4分钟之前</span>
+                        </div>
+                    </a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">
+                        <div>
+                            <i class="fa fa-upload fa-fw"></i> 服务器重启 <span
+                                class="pull-right text-muted small">4分钟之前</span>
+                        </div>
+                    </a></li>
+                    <li class="divider"></li>
+                    <li><a class="text-center" href="#"> <strong>查看所有提醒</strong>
+                        <i class="fa fa-angle-right"></i>
+                    </a></li>
+                </ul> <!-- /.dropdown-alerts --></li>
+            <!-- /.dropdown -->
+            <li class="dropdown"><a class="dropdown-toggle"
+                                    data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
+                <i class="fa fa-caret-down"></i>
+            </a>
+                <ul class="dropdown-menu dropdown-user">
+                     <li><a href="/filter/toChangePW"><i class="fa fa-gear fa-fw"></i> 更换密码</a></li>
+
+                    <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>
+                        退出登录</a></li>
+                </ul> <!-- /.dropdown-user --></li>
+            <!-- /.dropdown -->
+        </ul>
+        <!-- /.navbar-top-links -->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+
+                    <li><a href="/filter/examManage" class="active" >
+                        <i class="fa fa-edit fa-fw"></i> 考题管理</a></li>
+                    <li><a href="/filter/toList"  >
+                        <i class="fa fa-user fa-fw" ></i> 考生管理</a></li>
+                    <li><a href="/filter/paperResult"  >
+                        <i class="fa fa-user fa-fw" ></i> 考生成绩</a></li>
+
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side --> </nav>
+
+    <!-- /#page-wrapper -->
+</div>
+<!-- 客户编辑对话框 -->
+<div id="page-wrapper" style="min-height: 866px;">
+    <nav class="navbar navbar-default" role="navigation">
+
+        <div class="collapse navbar-collapse" id="example-navbar-collapse">
+            <h1>考题列表
+            </h1>
+            <div>
+                <form class="navbar-form navbar-right" role="search" action="/filter/searchExam">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search" name="aq">
+                    </div>
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        </div>
+        <table class="table table-hover" style="table-layout:fixed" >
+            <THEAD>
+            <tr>
+                <th width="4%">考题ID</th>
+                <th width="6%">考题类型</th>
+                <th width="4%">题型</th>
+                <th width="6%">是否可用</th>
+                <th width="10%">题目</th>
+                <th width="10%">A选项</th>
+                <th width="10%">B选项</th>
+                <th width="10%">C选项</th>
+                <th width="10%">D选项</th>
+                <th width="5%">答案</th>
+                <th width="10%">答案解析</th>
+                <th width="5%">出题人</th>
+                <th width="5%">修改</th>
+                <th width="5%">删除</th>
+
+            </tr>
+            </THEAD>
+            <TBODY align="center">
+            <tr th:each = "exam : ${exams}">
+                <td th:text="${exam.examId}" ></td>
+                <td th:text="${exam.examType}" ></td>
+
+                <span th:if="${exam.isRadio=='多选'}">
+                    <td >多选</td>
+                 </span>
+                <span th:if="${exam.isRadio=='单选'}">
+                <td >单选</td>
+                </span>
+                <span th:if="${exam.isUse=='不可用'}">
+                    <td style="color: red">不可用</td>
+                 </span>
+                <span th:if="${exam.isUse=='可用'}">
+                <td >可用</td>
+                </span>
+                <td th:text="${exam.examDetail}" ></td>
+                <td th:text="${exam.choiseA}" ></td>
+                <td th:text="${exam.choiseB}" ></td>
+                <td th:text="${exam.choiseC}" ></td>
+                <td th:text="${exam.choiseD}" ></td>
+                <td th:text="${exam.answer}" ></td>
+                <td th:text="${exam.answerDetail}" ></td>
+                <td th:text="${exam.userId}" ></td>
+
+                <td>
+                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal"
+                            data-id="edit">修改
+                    </button>
+                </td>
+
+                <td><a class="btn btn-danger btn-xs" th:onclick="'javascript:deleteEaxm(\''+${exam.examId}+'\')'">
+                    删除 </a></td>
+
+
+                </tr>
+            </TBODY>
+        </table>
+    </div>
+
+    <a name="add" class="btn btn-success" role="button" th:onclick="'javascript:addRadioModal()'">添加单选题</a>
+    <a name="add" class="btn btn-info" role="button" th:onclick="'javascript:addCheckModal()'">添加多选题</a>
+
+    <br/>
+    <a class="text-danger" style="color: red" th:text="${ErrMsg}"></a>
+
+    <br/>
+    <!--显示分页信息-->
+    <div class="modal-footer no-margin-top">
+        <div class="col-md-6">
+            当前第 [[${pageInfo.pageNum}]]页,共 [[${pageInfo.pages}]] 页.一共 [[${pageInfo.total}]] 条记录
+        </div>
+
+        <ul class="pagination pull-right no-margin">
+            <li th:if="${pageInfo.hasPreviousPage}">
+                <a th:href="'/filter/examManage?pageNum=1'">首页</a>
+            </li>
+
+            <li class="prev" th:if="${pageInfo.hasPreviousPage}">
+                <a th:href="'/filter/examManage?pageNum='+${pageInfo.prePage}">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                </a>
+            </li>
+            <!--遍历条数-->
+            <li th:each="nav:${pageInfo.navigatepageNums}">
+                <a th:href="'/filter/examManage?pageNum='+${nav}" th:text="${nav}" th:if="${nav != pageInfo.pageNum}"></a>
+                <span style="font-weight: bold;background: #6faed9;" th:if="${nav == pageInfo.pageNum}"
+                      th:text="${nav}"></span>
+            </li>
+
+            <li class="next" th:if="${pageInfo.hasNextPage}">
+                <a th:href="'/filter/examManage?pageNum='+${pageInfo.nextPage}">
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                </a>
+            </li>
+
+            <li>
+                <a th:href="'/filter/examManage?pageNum='+${pageInfo.pages}">尾页</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- /#wrapper -->
+
+
+<!-- 修改题目弹框 -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="editModalLabel">修改题目信息</h4>
+            </div>
+            <form action="/filter/editExam" method="post">
+                <div class="modal-body">
+                    <input class="form-control examId" type="hidden" id="examId" name="examId"  >
+
+                    <div class="form-group">
+                        <label for="examType">考题类型</label>
+                        <input type="text" name="examType" required="required" class="form-control examType" id="examType" >
+                    </div>
+
+                    <input class="form-control isRadio" type="hidden" id="isRadio" name="isRadio"  >
+                    <div class="form-group">
+                        <label >是否可用:</label>
+                        <input type = "radio"  name="isUse" checked="checked" value="可用" >可用
+                        <input type = "radio"  name="isUse" value="不可用" >不可用
+
+                    </div>
+                    <div class="form-group">
+                        <label for="examDetail">题目</label>
+                        <input type="text" name="examDetail" required="required" class="form-control examDetail" id="examDetail" >
+                    </div>
+                    <div class="form-group">
+                        <label for="choiseA">A选项</label>
+                        <input type="text" name="choiseA" required="required" class="form-control choiseA" id="choiseA" >
+                    </div>
+                    <div class="form-group">
+                        <label for="choiseB">B选项</label>
+                        <input type="text" name="choiseB" required="required" class="form-control choiseB" id="choiseB" >
+                    </div>
+                    <div class="form-group">
+                        <label for="choiseC">C选项</label>
+                        <input type="text" name="choiseC" required="required" class="form-control choiseC" id="choiseC" >
+                    </div>
+                    <div class="form-group">
+                        <label for="choiseD">D选项</label>
+                        <input type="text" name="choiseD" required="required" class="form-control choiseD"  id="choiseD" >
+                    </div>
+                    <div class="form-group">
+                        <label>答案</label>
+                        <input name="answer" type="checkbox" value="A" />A
+                        <input name="answer" type="checkbox" value="B" />B
+                        <input name="answer" type="checkbox" value="C" />C
+                        <input name="answer" type="checkbox" value="D" />D
+                    </div>
+                    <div class="form-group">
+                        <label for="answerDetail">答案解析</label>
+                        <textarea type="text" name="answerDetail" class="form-control answerDetail" id="answerDetail" ></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <input class="btn btn-success" value="Submit" type="submit">
+                        &nbsp;&nbsp;&nbsp;
+                        <input class="btn btn-info" value="Reset" type="reset">
+                        &nbsp;&nbsp;&nbsp;
+                         </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- model end -->
+
+
+<!--添加单选题弹框-->
+<div class="modal fade" id="addRadioModal" tabindex="-1" role="dialog" aria-labelledby="addRadioModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="addRadioModalLabel">新增</h4>
+            </div>
+
+            <form action="/filter/addExam" method="post"  onSubmit="return beforeSubmit(this)">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="examType">考题类型</label>
+                        <input type="text" name="examType" class="form-control" id="examType" placeholder="isv">
+                    </div>
+                    <input type="hidden" name="isRadio" class="form-control" id="isRadio" value="单选">
+                    <div class="form-group">
+                        <label >是否可用:</label>
+                        <input type = "radio"  name="isUse" checked="checked" value="可用" >可用
+                        <input type = "radio"  name="isUse" value="不可用" >不可用
+
+                    </div>
+                    <div class="form-group">
+                        <label for="examDetail">题目</label>
+                        <input type="text" name="examDetail" class="form-control" id="examDetail" placeholder="examDetail">
+                    </div>
+                    <div class="form-group">
+                        <label for="choiseA">A选项</label>
+                        <input type="text" name="choiseA" class="form-control" id="choiseA" placeholder="choiseA">
+                    </div>
+                    <div class="form-group">
+                        <label for="choiseB">B选项</label>
+                        <input type="text" name="choiseB" class="form-control" id="choiseB" placeholder="choiseB">
+                    </div>
+                    <div class="form-group">
+                        <label for="choiseC">C选项</label>
+                        <input type="text" name="choiseC" class="form-control" id="choiseC" placeholder="choiseC">
+                    </div>
+                    <div class="form-group">
+                        <label for="choiseD">D选项</label>
+                        <input type="text" name="choiseD" class="form-control" id="choiseD" placeholder="choiseD">
+                    </div>
+                    <div class="form-group">
+                        <label >答案:</label>
+                        <input type = "radio"  name="answer" value="A" >A
+                        <input type = "radio"  name="answer" value="B" >B
+                        <input type = "radio"  name="answer" value="C" >C
+                        <input type = "radio"  name="answer" value="D" >D
+                    </div>
+                    <div class="form-group">
+                        <label for="answerDetail">答案解析</label>
+                        <textarea type="text" name="answerDetail" class="form-control" id="answerDetail" placeholder="answerDetail"></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <input class="btn btn-success" value="Submit" type="submit">
+                        &nbsp;&nbsp;&nbsp;
+                        <input class="btn btn-info" value="Reset" type="reset">
+                        &nbsp;&nbsp;&nbsp;
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--添加多选题弹框-->
+<div class="modal fade" id="addCheckModal" tabindex="-1" role="dialog" aria-labelledby="addCheckModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="addCheckModalLabel">新增</h4>
+            </div>
+
+            <form action="/filter/addExam" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="examType">考题类型</label>
+                        <input type="text" name="examType" class="form-control" id="examType" placeholder="isv">
+                    </div>
+                    <input type="hidden" name="isRadio" class="form-control" id="isRadio" value="多选">
+                    <div class="form-group">
+                        <label >是否可用:</label>
+                        <input type = "radio"  name="isUse" checked="checked" value="可用" >可用
+                        <input type = "radio"  name="isUse" value="不可用" >不可用
+
+                    </div>
+                    <div class="form-group">
+                        <label for="examDetail">题目</label>
+                        <input type="text" name="examDetail" class="form-control" id="examDetail" placeholder="examDetail">
+                    </div>
+                    <div class="form-group">
+                        <label for="choiseA">A选项</label>
+                        <input type="text" name="choiseA" class="form-control" id="choiseA" placeholder="choiseA">
+                    </div>
+                    <div class="form-group">
+                        <label for="choiseB">B选项</label>
+                        <input type="text" name="choiseB" class="form-control" id="choiseB" placeholder="choiseB">
+                    </div>
+                    <div class="form-group">
+                        <label for="choiseC">C选项</label>
+                        <input type="text" name="choiseC" class="form-control" id="choiseC" placeholder="choiseC">
+                    </div>
+                    <div class="form-group">
+                        <label for="choiseD">D选项</label>
+                        <input type="text" name="choiseD" class="form-control" id="choiseD" placeholder="choiseD">
+                    </div>
+                    <div class="form-group">
+                        <label>答案</label>
+                        <input name="answer" type="checkbox" value="A" />A
+                        <input name="answer" type="checkbox" value="B" />B
+                        <input name="answer" type="checkbox" value="C" />C
+                        <input name="answer" type="checkbox" value="D" />D
+                    </div>
+                    <div class="form-group">
+                        <label for="answerDetail">答案解析</label>
+                        <textarea type="text" name="answerDetail" class="form-control" id="answerDetail" placeholder="answerDetail"></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <input class="btn btn-success" value="Submit" type="submit">
+                        &nbsp;&nbsp;&nbsp;
+                        <input class="btn btn-info" value="Reset" type="reset">
+                        &nbsp;&nbsp;&nbsp;
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- jQuery -->
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script type="text/javascript" th:src="@{/js/metisMenu.min.js}"></script>
+
+<!-- DataTables JavaScript -->
+<script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/dataTables.bootstrap.min.js}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script type="text/javascript" th:src="@{/js/sb-admin-2.js}"></script>
+<script type="text/javascript">
+    $('#editModal').on('show.bs.modal', function (event) {
+        var btnThis = $(event.relatedTarget); //触发事件的按钮
+        var modal = $(this);  //当前模态框
+        var content0 = btnThis.closest('tr').find('td').eq(0).text();
+        var content1 = btnThis.closest('tr').find('td').eq(1).text();
+        var content2 = btnThis.closest('tr').find('td').eq(2).text();
+        var content3 = btnThis.closest('tr').find('td').eq(4).text();
+        var content4 = btnThis.closest('tr').find('td').eq(5).text();
+        var content5 = btnThis.closest('tr').find('td').eq(6).text();
+        var content6 = btnThis.closest('tr').find('td').eq(7).text();
+        var content7 = btnThis.closest('tr').find('td').eq(8).text();
+        var content8 = btnThis.closest('tr').find('td').eq(9).text();
+        var content9 = btnThis.closest('tr').find('td').eq(10).text();
+        console.log(content0);
+        console.log(content1);
+        console.log(content2);
+        console.log(content3);
+        console.log(content4);
+        console.log(content5);
+        console.log(content6);
+        console.log(content7);
+
+
+        modal.find('.examId').val(content0);
+        modal.find('.examType').val(content1);
+        modal.find('.isRadio').val(content2);
+        modal.find('.examDetail').val(content3);
+        modal.find('.choiseA').val(content4);
+        modal.find('.choiseB').val(content5);
+        modal.find('.choiseC').val(content6);
+        modal.find('.choiseD').val(content7);
+        modal.find('.answer').val(content8);
+        modal.find('.answerDetail').val(content9);
+
+
+    });
+
+
+    function deleteEaxm(id) {
+        if (confirm('确实要删除该题吗?')) {
+
+            $.ajax({
+                url: "/filter/deleteExam",
+                type: "POST",
+                dataType: "json",
+                data: {id: id},//请求参数
+                success: function (data) {
+                    alert("删除更新成功！");
+
+                    window.location.reload();
+                },
+                error: function () {
+
+                    alert("删除失败!");
+                }
+            });
+        }
+    }
+
+    function addRadioModal() {
+        $("#addRadioModalLabel").text("新增");
+        $('#addRadioModal').modal();
+    }
+
+    function addCheckModal() {
+        $("#addCheckModalLabel").text("新增");
+        $('#addCheckModal').modal();
+    }
+</script>
+<script type="text/javascript">
+    function beforeSubmit(form){
+        if(form.answer.value==''){
+            alert('答案不能为空！');
+            form.answer.focus();
+            return false;
+        }
+
+        return true;
+    }
+</script>
+</body>
+
+</html>

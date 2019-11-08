@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mask.exam.mapper.TblPaperMapper" >
+  <resultMap id="BaseResultMap" type="com.mask.exam.domain.TblPaper" >
+    <id column="paper_id" property="paperId" jdbcType="INTEGER" />
+    <result column="paper_type" property="paperType" jdbcType="VARCHAR" />
+    <result column="startTime" property="starttime" jdbcType="VARCHAR" />
+    <result column="radioTime" property="radiotime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endtime" jdbcType="VARCHAR" />
+    <result column="mark" property="mark" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    paper_id, paper_type, startTime, radioTime, endTime, mark, userId
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mask.exam.domain.TblPaperExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_paper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_paper
+    where paper_id = #{paperId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbl_paper
+    where paper_id = #{paperId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mask.exam.domain.TblPaperExample" >
+    delete from tbl_paper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mask.exam.domain.TblPaper" >
+    insert into tbl_paper (paper_id, paper_type, startTime, 
+      radioTime, endTime, mark, 
+      userId)
+    values (#{paperId,jdbcType=INTEGER}, #{paperType,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, 
+      #{radiotime,jdbcType=VARCHAR}, #{endtime,jdbcType=VARCHAR}, #{mark,jdbcType=INTEGER}, 
+      #{userid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mask.exam.domain.TblPaper" >
+    insert into tbl_paper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="paperId != null" >
+        paper_id,
+      </if>
+      <if test="paperType != null" >
+        paper_type,
+      </if>
+      <if test="starttime != null" >
+        startTime,
+      </if>
+      <if test="radiotime != null" >
+        radioTime,
+      </if>
+      <if test="endtime != null" >
+        endTime,
+      </if>
+      <if test="mark != null" >
+        mark,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="paperId != null" >
+        #{paperId,jdbcType=INTEGER},
+      </if>
+      <if test="paperType != null" >
+        #{paperType,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="radiotime != null" >
+        #{radiotime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null" >
+        #{mark,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mask.exam.domain.TblPaperExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_paper
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_paper
+    <set >
+      <if test="record.paperId != null" >
+        paper_id = #{record.paperId,jdbcType=INTEGER},
+      </if>
+      <if test="record.paperType != null" >
+        paper_type = #{record.paperType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.starttime != null" >
+        startTime = #{record.starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.radiotime != null" >
+        radioTime = #{record.radiotime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endtime != null" >
+        endTime = #{record.endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark != null" >
+        mark = #{record.mark,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_paper
+    set paper_id = #{record.paperId,jdbcType=INTEGER},
+      paper_type = #{record.paperType,jdbcType=VARCHAR},
+      startTime = #{record.starttime,jdbcType=VARCHAR},
+      radioTime = #{record.radiotime,jdbcType=VARCHAR},
+      endTime = #{record.endtime,jdbcType=VARCHAR},
+      mark = #{record.mark,jdbcType=INTEGER},
+      userId = #{record.userid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mask.exam.domain.TblPaper" >
+    update tbl_paper
+    <set >
+      <if test="paperType != null" >
+        paper_type = #{paperType,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        startTime = #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="radiotime != null" >
+        radioTime = #{radiotime,jdbcType=VARCHAR},
+      </if>
+      <if test="endtime != null" >
+        endTime = #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null" >
+        mark = #{mark,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where paper_id = #{paperId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mask.exam.domain.TblPaper" >
+    update tbl_paper
+    set paper_type = #{paperType,jdbcType=VARCHAR},
+      startTime = #{starttime,jdbcType=VARCHAR},
+      radioTime = #{radiotime,jdbcType=VARCHAR},
+      endTime = #{endtime,jdbcType=VARCHAR},
+      mark = #{mark,jdbcType=INTEGER},
+      userId = #{userid,jdbcType=INTEGER}
+    where paper_id = #{paperId,jdbcType=INTEGER}
+  </update>
+</mapper>
