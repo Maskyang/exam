@@ -11,6 +11,8 @@ public class TblUser {
 
     private String userState;
 
+    private String examLevel;
+
     public Integer getUserId() {
         return userId;
     }
@@ -49,5 +51,13 @@ public class TblUser {
 
     public void setUserState(String userState) {
         this.userState = userState == null ? null : userState.trim();
+    }
+
+    public String getExamLevel() {
+        return examLevel;
+    }
+
+    public void setExamLevel(String examLevel) {
+        this.examLevel = examLevel == null ? null : examLevel.trim();
     }
 }

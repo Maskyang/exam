@@ -14,6 +14,7 @@
     <result column="answer" property="answer" jdbcType="VARCHAR" />
     <result column="answer_detail" property="answerDetail" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="e_level" property="eLevel" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -75,7 +76,7 @@
   </sql>
   <sql id="Base_Column_List" >
     exam_id, exam_type, is_use, is_radio, exam_detail, choise_a, choise_b, choise_c, 
-    choise_d, answer, answer_detail, user_id
+    choise_d, answer, answer_detail, user_id, e_level
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mask.exam.domain.TblExamExample" >
     select
@@ -111,13 +112,13 @@
     insert into tbl_exam (exam_id, exam_type, is_use, 
       is_radio, exam_detail, choise_a, 
       choise_b, choise_c, choise_d, 
-      answer, answer_detail, user_id
-      )
+      answer, answer_detail, user_id, 
+      e_level)
     values (#{examId,jdbcType=INTEGER}, #{examType,jdbcType=VARCHAR}, #{isUse,jdbcType=VARCHAR}, 
       #{isRadio,jdbcType=VARCHAR}, #{examDetail,jdbcType=VARCHAR}, #{choiseA,jdbcType=VARCHAR}, 
       #{choiseB,jdbcType=VARCHAR}, #{choiseC,jdbcType=VARCHAR}, #{choiseD,jdbcType=VARCHAR}, 
-      #{answer,jdbcType=VARCHAR}, #{answerDetail,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}
-      )
+      #{answer,jdbcType=VARCHAR}, #{answerDetail,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{eLevel,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.mask.exam.domain.TblExam" >
     insert into tbl_exam
@@ -158,6 +159,9 @@
       <if test="userId != null" >
         user_id,
       </if>
+      <if test="eLevel != null" >
+        e_level,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="examId != null" >
@@ -195,6 +199,9 @@
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="eLevel != null" >
+        #{eLevel,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -243,6 +250,9 @@
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
+      <if test="record.eLevel != null" >
+        e_level = #{record.eLevel,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -261,7 +271,8 @@
       choise_d = #{record.choiseD,jdbcType=VARCHAR},
       answer = #{record.answer,jdbcType=VARCHAR},
       answer_detail = #{record.answerDetail,jdbcType=VARCHAR},
-      user_id = #{record.userId,jdbcType=INTEGER}
+      user_id = #{record.userId,jdbcType=INTEGER},
+      e_level = #{record.eLevel,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -302,6 +313,9 @@
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
+      <if test="eLevel != null" >
+        e_level = #{eLevel,jdbcType=VARCHAR},
+      </if>
     </set>
     where exam_id = #{examId,jdbcType=INTEGER}
   </update>
@@ -317,7 +331,8 @@
       choise_d = #{choiseD,jdbcType=VARCHAR},
       answer = #{answer,jdbcType=VARCHAR},
       answer_detail = #{answerDetail,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=INTEGER}
+      user_id = #{userId,jdbcType=INTEGER},
+      e_level = #{eLevel,jdbcType=VARCHAR}
     where exam_id = #{examId,jdbcType=INTEGER}
   </update>
 </mapper>

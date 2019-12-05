@@ -211,6 +211,7 @@
                 <th>用户ID</th>
                 <th>用户名</th>
                 <th>密码</th>
+                <th>试卷等级</th>
                 <th>级别</th>
                 <th>状态</th>
                 <th>修改</th>
@@ -222,8 +223,10 @@
                 <td th:text="${user.userId}"></td>
                 <td th:text="${user.userName}"></td>
                 <td th:text="${user.userPassword}"></td>
+                <td th:text="${user.examLevel}"></td>
                 <td th:text="${user.userCode}"></td>
                 <td th:text="${user.userState}"></td>
+
                 <td>
                     <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editModal"
                             data-id="edit">修改
@@ -301,6 +304,10 @@
                         <input type="text" name="userPassword" class="form-control userPassword" id="userPassword">
                     </div>
                     <div class="form-group">
+                        <label for="examLevel">试卷等级</label>
+                        <input type="text" name="examLevel" required="required" class="form-control examLevel" id="examLevel" >
+                    </div>
+                        <div class="form-group">
                         <label for="userCode">userCode</label>
                         <input type="text" name="userCode" required="required" class="form-control userCode" id="userCode" onfocus=this.blur()>
                     </div>
@@ -342,7 +349,10 @@
                         <label for="userPassword">密码</label>
                         <input type="text" name="userPassword" required="required" class="form-control" id="userPassword" placeholder="密码">
                     </div>
-
+                    <div class="form-group">
+                        <label for="exam_level">试卷等级</label>
+                        <input type="text" name="exam_level" required="required" class="form-control" id="exam_level" placeholder="试卷等级">
+                    </div>
                     <input class="form-control" type="hidden" id="userCode" name="userCode" value="m03" >
 
                     <div class="form-group">
@@ -385,10 +395,14 @@
         var content1 = btnThis.closest('tr').find('td').eq(1).text();
         var content2 = btnThis.closest('tr').find('td').eq(2).text();
         var content3 = btnThis.closest('tr').find('td').eq(3).text();
+        var content4 = btnThis.closest('tr').find('td').eq(4).text();
+
         modal.find('.userId').val(content0);
         modal.find('.userName').val(content1);
         modal.find('.userPassword').val(content2);
-        modal.find('.userCode').val(content3);
+        modal.find('.examLevel').val(content3);
+        modal.find('.userCode').val(content4);
+        console.log(content3);
 
     });
 

@@ -443,6 +443,76 @@ public class TblUserExample {
             addCriterion("user_state not between", value1, value2, "userState");
             return (Criteria) this;
         }
+
+        public Criteria andExamLevelIsNull() {
+            addCriterion("exam_level is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamLevelIsNotNull() {
+            addCriterion("exam_level is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamLevelEqualTo(String value) {
+            addCriterion("exam_level =", value, "examLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamLevelNotEqualTo(String value) {
+            addCriterion("exam_level <>", value, "examLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamLevelGreaterThan(String value) {
+            addCriterion("exam_level >", value, "examLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamLevelGreaterThanOrEqualTo(String value) {
+            addCriterion("exam_level >=", value, "examLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamLevelLessThan(String value) {
+            addCriterion("exam_level <", value, "examLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamLevelLessThanOrEqualTo(String value) {
+            addCriterion("exam_level <=", value, "examLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamLevelLike(String value) {
+            addCriterion("exam_level like", value, "examLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamLevelNotLike(String value) {
+            addCriterion("exam_level not like", value, "examLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamLevelIn(List<String> values) {
+            addCriterion("exam_level in", values, "examLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamLevelNotIn(List<String> values) {
+            addCriterion("exam_level not in", values, "examLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamLevelBetween(String value1, String value2) {
+            addCriterion("exam_level between", value1, value2, "examLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andExamLevelNotBetween(String value1, String value2) {
+            addCriterion("exam_level not between", value1, value2, "examLevel");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

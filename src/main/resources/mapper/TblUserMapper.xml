@@ -7,6 +7,7 @@
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
     <result column="user_state" property="userState" jdbcType="CHAR" />
+    <result column="exam_level" property="examLevel" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    user_id, user_code, user_name, user_password, user_state
+    user_id, user_code, user_name, user_password, user_state, exam_level
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mask.exam.domain.TblUserExample" >
     select
@@ -84,7 +85,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from tbl_user
     where user_id = #{userId,jdbcType=INTEGER}
@@ -100,10 +101,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.mask.exam.domain.TblUser" >
-    insert into tbl_user (user_id, user_code, user_name, 
-      user_password, user_state)
-    values (#{userId,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{userPassword,jdbcType=VARCHAR}, #{userState,jdbcType=CHAR})
+    insert into tbl_user (user_id, user_code, user_name,
+      user_password, user_state, exam_level
+      )
+    values (#{userId,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+      #{userPassword,jdbcType=VARCHAR}, #{userState,jdbcType=CHAR}, #{examLevel,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.mask.exam.domain.TblUser" >
     insert into tbl_user
@@ -123,6 +126,9 @@
       <if test="userState != null" >
         user_state,
       </if>
+      <if test="examLevel != null" >
+        exam_level,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -139,6 +145,9 @@
       </if>
       <if test="userState != null" >
         #{userState,jdbcType=CHAR},
+      </if>
+      <if test="examLevel != null" >
+        #{examLevel,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -166,6 +175,9 @@
       <if test="record.userState != null" >
         user_state = #{record.userState,jdbcType=CHAR},
       </if>
+      <if test="record.examLevel != null" >
+        exam_level = #{record.examLevel,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -174,10 +186,11 @@
   <update id="updateByExample" parameterType="map" >
     update tbl_user
     set user_id = #{record.userId,jdbcType=INTEGER},
-      user_code = #{record.userCode,jdbcType=VARCHAR},
-      user_name = #{record.userName,jdbcType=VARCHAR},
-      user_password = #{record.userPassword,jdbcType=VARCHAR},
-      user_state = #{record.userState,jdbcType=CHAR}
+    user_code = #{record.userCode,jdbcType=VARCHAR},
+    user_name = #{record.userName,jdbcType=VARCHAR},
+    user_password = #{record.userPassword,jdbcType=VARCHAR},
+    user_state = #{record.userState,jdbcType=CHAR},
+    exam_level = #{record.examLevel,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +210,9 @@
       <if test="userState != null" >
         user_state = #{userState,jdbcType=CHAR},
       </if>
+      <if test="examLevel != null" >
+        exam_level = #{examLevel,jdbcType=VARCHAR},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
@@ -205,7 +221,8 @@
     set user_code = #{userCode,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
       user_password = #{userPassword,jdbcType=VARCHAR},
-      user_state = #{userState,jdbcType=CHAR}
+      user_state = #{userState,jdbcType=CHAR},
+      exam_level = #{examLevel,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 

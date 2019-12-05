@@ -223,13 +223,14 @@
                 <th width="6%">考题类型</th>
                 <th width="4%">题型</th>
                 <th width="6%">是否可用</th>
-                <th width="10%">题目</th>
-                <th width="10%">A选项</th>
-                <th width="10%">B选项</th>
-                <th width="10%">C选项</th>
-                <th width="10%">D选项</th>
+                <th width="9%">题目</th>
+                <th width="9%">A选项</th>
+                <th width="9%">B选项</th>
+                <th width="9%">C选项</th>
+                <th width="9%">D选项</th>
                 <th width="5%">答案</th>
-                <th width="10%">答案解析</th>
+                <th width="9%">答案解析</th>
+                <th width="6%">试卷等级</th>
                 <th width="5%">出题人</th>
                 <th width="5%">修改</th>
                 <th width="5%">删除</th>
@@ -260,6 +261,7 @@
                 <td th:text="${exam.choiseD}" ></td>
                 <td th:text="${exam.answer}" ></td>
                 <td th:text="${exam.answerDetail}" ></td>
+                <td th:text="${exam.eLevel}" ></td>
                 <td th:text="${exam.userId}" ></td>
 
                 <td>
@@ -375,9 +377,14 @@
                         <input name="answer" type="checkbox" value="D" />D
                     </div>
                     <div class="form-group">
+                        <label for="eLevel">试卷等级</label>
+                        <input type="text" name="eLevel" required="required" class="form-control eLevel"  id="eLevel" >
+                    </div>
+                    <div class="form-group">
                         <label for="answerDetail">答案解析</label>
                         <textarea type="text" name="answerDetail" class="form-control answerDetail" id="answerDetail" ></textarea>
                     </div>
+
                     <div class="modal-footer">
                         <input class="btn btn-success" value="Submit" type="submit">
                         &nbsp;&nbsp;&nbsp;
@@ -446,7 +453,10 @@
                         <label for="answerDetail">答案解析</label>
                         <textarea type="text" name="answerDetail" class="form-control" id="answerDetail" placeholder="answerDetail"></textarea>
                     </div>
-
+                    <div class="form-group">
+                        <label for="eLevel">试卷等级</label>
+                        <input type="text" name="eLevel" required="required" class="form-control"  id="eLevel" >
+                    </div>
                     <div class="modal-footer">
                         <input class="btn btn-success" value="Submit" type="submit">
                         &nbsp;&nbsp;&nbsp;
@@ -557,6 +567,8 @@
         var content7 = btnThis.closest('tr').find('td').eq(8).text();
         var content8 = btnThis.closest('tr').find('td').eq(9).text();
         var content9 = btnThis.closest('tr').find('td').eq(10).text();
+        var content10 = btnThis.closest('tr').find('td').eq(11).text();
+
         console.log(content0);
         console.log(content1);
         console.log(content2);
@@ -577,6 +589,7 @@
         modal.find('.choiseD').val(content7);
         modal.find('.answer').val(content8);
         modal.find('.answerDetail').val(content9);
+        modal.find('.eLevel').val(content10);
 
 
     });

@@ -923,6 +923,76 @@ public class TblExamExample {
             addCriterion("user_id not between", value1, value2, "userId");
             return (Criteria) this;
         }
+
+        public Criteria andELevelIsNull() {
+            addCriterion("e_level is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andELevelIsNotNull() {
+            addCriterion("e_level is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andELevelEqualTo(String value) {
+            addCriterion("e_level =", value, "eLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andELevelNotEqualTo(String value) {
+            addCriterion("e_level <>", value, "eLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andELevelGreaterThan(String value) {
+            addCriterion("e_level >", value, "eLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andELevelGreaterThanOrEqualTo(String value) {
+            addCriterion("e_level >=", value, "eLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andELevelLessThan(String value) {
+            addCriterion("e_level <", value, "eLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andELevelLessThanOrEqualTo(String value) {
+            addCriterion("e_level <=", value, "eLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andELevelLike(String value) {
+            addCriterion("e_level like", value, "eLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andELevelNotLike(String value) {
+            addCriterion("e_level not like", value, "eLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andELevelIn(List<String> values) {
+            addCriterion("e_level in", values, "eLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andELevelNotIn(List<String> values) {
+            addCriterion("e_level not in", values, "eLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andELevelBetween(String value1, String value2) {
+            addCriterion("e_level between", value1, value2, "eLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andELevelNotBetween(String value1, String value2) {
+            addCriterion("e_level not between", value1, value2, "eLevel");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

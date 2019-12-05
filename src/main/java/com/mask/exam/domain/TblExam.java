@@ -25,6 +25,8 @@ public class TblExam {
 
     private Integer userId;
 
+    private String eLevel;
+
     public Integer getExamId() {
         return examId;
     }
@@ -119,5 +121,13 @@ public class TblExam {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String geteLevel() {
+        return eLevel;
+    }
+
+    public void seteLevel(String eLevel) {
+        this.eLevel = eLevel == null ? null : eLevel.trim();
     }
 }
