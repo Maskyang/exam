@@ -54,7 +54,7 @@ public class ExamController {
         //如果这个userid考试过则不允许创建paper,直接返回成绩页面
         if(paperList.size()==0){
             paper.setUserid(sessionUser.getUserId());
-            paper.setPaperType("isv");
+            paper.setPaperType(sessionUser.getExamLevel() );
             paper.setStarttime(getTime());
             paper.setMark(0);
             paperService.insert(paper);
@@ -203,11 +203,12 @@ public class ExamController {
     //跳转单选题
     @RequestMapping("/filter/exam")
     public String exam(HttpServletRequest request, Map<String, Object> map) {
-//        TblUser sessionUser = (TblUser) request.getSession().getAttribute("user");
+        TblUser sessionUser = (TblUser) request.getSession().getAttribute("user");
         TblExamExample example = new TblExamExample();
         TblExamExample.Criteria criteria = example.createCriteria();
         criteria.andIsRadioEqualTo("单选");
         criteria.andIsUseEqualTo("可用");
+        criteria.andELevelEqualTo(sessionUser.getExamLevel());
         List<TblExam> examList = examService.selectByExample(example);
         //需求：定时，乱序（随机抽取然后正序），修改
         Collections.shuffle(examList);
@@ -233,7 +234,7 @@ public class ExamController {
                 if (exam == null) {
                     System.out.println("第" + i + "题不存在");
 
-                } else if (exam.getIsRadio().equals("单选")&&exam.getIsUse().equals("可用")) {
+                } else if (exam.getIsRadio().equals("单选")&&exam.getIsUse().equals("可用")&&exam.geteLevel().equals(sessionUser.getExamLevel())) {
                     if (exam.getAnswer().equals(answer)) {
                         //试卷+4分
                         score = score + 1;
@@ -280,10 +281,12 @@ public class ExamController {
     //跳转多选题
     @RequestMapping("/filter/checkExam")
     public String checkExam(HttpServletRequest request, Map<String, Object> map) {
+        TblUser sessionUser = (TblUser) request.getSession().getAttribute("user");
         TblExamExample example = new TblExamExample();
         TblExamExample.Criteria criteria = example.createCriteria();
         criteria.andIsRadioEqualTo("多选");
         criteria.andIsUseEqualTo("可用");
+        criteria.andELevelEqualTo(sessionUser.getExamLevel());
         List<TblExam> examList = examService.selectByExample(example);
         Collections.shuffle(examList);
 
@@ -317,7 +320,7 @@ public class ExamController {
                         answer += answers[j];
                     }
 
-                    if (exam.getIsRadio().equals("多选")) {
+                    if (exam.getIsRadio().equals("多选")&&exam.getIsUse().equals("可用")&&exam.geteLevel().equals(sessionUser.getExamLevel())) {
                         if (exam.getAnswer().equals(answer)) {
                             //试卷+4分
                             score = score + 1;
@@ -355,6 +358,7 @@ public class ExamController {
         TblExamExample example = new TblExamExample();
         TblExamExample.Criteria criteria = example.createCriteria();
         criteria.andIsUseEqualTo("可用");
+        criteria.andELevelEqualTo(sessionUser.getExamLevel());
         List<TblExam> examList = examService.selectByExample(example);
         double allScore = examList.size();
         score = score/allScore*100;
