@@ -209,6 +209,8 @@
                 <th>结束时间</th>
                 <th>分数</th>
                 <th>用户ID</th>
+                <th>用户名</th>
+
                 <th>操作</th>
 
             </tr>
@@ -221,6 +223,8 @@
                 <td th:text="${paper.endtime}" ></td>
                 <td th:text="${paper.mark}" ></td>
                 <td th:text="${paper.userid}" ></td>
+                <td th:text="${paper.userName}" ></td>
+
                 <td width="5%" ><a th:href="${'/filter/toPaperDetail?id='+paper.paperId}" class="btn btn-info btn-xs">详情 </a></td>
 
             </tr>

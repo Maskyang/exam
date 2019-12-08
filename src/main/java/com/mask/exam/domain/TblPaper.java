@@ -15,6 +15,8 @@ public class TblPaper {
 
     private Integer userid;
 
+    private String userName;
+
     public Integer getPaperId() {
         return paperId;
     }
@@ -69,5 +71,13 @@ public class TblPaper {
 
     public void setUserid(Integer userid) {
         this.userid = userid;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 }

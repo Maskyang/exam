@@ -57,6 +57,7 @@ public class ExamController {
             paper.setPaperType(sessionUser.getExamLevel() );
             paper.setStarttime(getTime());
             paper.setMark(0);
+            paper.setUserName(sessionUser.getUserName());
             paperService.insert(paper);
             TblPaperExample example1 = new TblPaperExample();
             TblPaperExample.Criteria criteria1 = example1.createCriteria();

@@ -185,6 +185,9 @@ public class PaperController {
         cell = row1.createCell(5);
         cell.setCellValue("用户ID");
         cell.setCellStyle(style);
+        cell = row1.createCell(6);
+        cell.setCellValue("用户名");
+        cell.setCellStyle(style);
 
 //      cell = row1.createCell(8);
 //      cell.setCellValue("最小值");
@@ -224,6 +227,11 @@ public class PaperController {
                 row1.createCell(5).setCellValue("-");
             } else {
                 row1.createCell(5).setCellValue(list.get(i).getUserid());
+            }
+            if (list.get(i).getUserName() == null||"".equals(list.get(i).getUserName())) {
+                row1.createCell(6).setCellValue("-");
+            } else {
+                row1.createCell(6).setCellValue(list.get(i).getUserName());
             }
 
 
