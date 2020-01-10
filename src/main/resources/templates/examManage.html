@@ -280,8 +280,11 @@
     </div>
 
     <a name="add" class="btn btn-success" role="button" th:onclick="'javascript:addRadioModal()'">添加单选题</a>
-    <a name="add" class="btn btn-info" role="button" th:onclick="'javascript:addCheckModal()'">添加多选题</a>
-
+    <a name="add" class="btn btn-info" role="button" th:onclick="'javascript:addCheckModal()'">添加多选题</a><br/>
+    <form action="/filter/upload" enctype="multipart/form-data" method="post" id='formBox' name="form"> 
+                    <input type="file" id="chooseImage" name="file">
+        <button type="submit" class="btn btn-success btn-sm" >上传</button>
+              </form>
     <br/>
     <a class="text-danger" style="color: red" th:text="${ErrMsg}"></a>
 
