@@ -108,7 +108,8 @@ public class ExamController {
                 pageSize = 10;    //设置默认每页显示的数据数
             }
             logger.info("--------------跳转成绩查询---------------");
-            logger.info("当前页是："+pageNum+"显示条数是："+pageSize);//1.引入分页插件,pageNum是第几页，pageSize是每页显示多少条,默认查询总数count
+            logger.info("当前页是："+pageNum+"显示条数是："+pageSize);
+            //1.引入分页插件,pageNum是第几页，pageSize是每页显示多少条,默认查询总数count
             PageHelper.startPage(pageNum,pageSize);
             //2.紧跟的查询就是一个分页查询-必须紧跟.后面的其他查询不会被分页，除非再次调用PageHelper.startPage
             try {
@@ -116,10 +117,10 @@ public class ExamController {
                 TblTitleExample.Criteria criteria2 = example2.createCriteria();
                 criteria2.andUserIdEqualTo(sessionUser.getUserId());
                 List<TblTitle> titleList = titleService.selectByExample(example2);
+                //排列
                     Collections.sort(titleList, new Comparator<TblTitle>() {
                         @Override
                         public int compare(TblTitle o1, TblTitle o2) {
-                            //按照学生的年龄进行升序排列
                             if(o1.getExamId() > o2.getExamId()){
                                 return 1;
                             }
@@ -168,7 +169,7 @@ public class ExamController {
         criteria.andUseridEqualTo(sessionUser.getUserId());
         List<TblPaper> paperList = paperService.selectByExample(example);
         if(paperList!=null){
-            //为了程序的严谨性，判断非空：
+            //1为了程序的严谨性，判断非空：
             if(pageNum == null){
                 pageNum = 1;   //设置默认当前页
             }
@@ -178,7 +179,8 @@ public class ExamController {
             if(pageSize == null){
                 pageSize = 10;    //设置默认每页显示的数据数
             }
-            logger.info("当前页是："+pageNum+"显示条数是："+pageSize);//1.引入分页插件,pageNum是第几页，pageSize是每页显示多少条,默认查询总数count
+            logger.info("当前页是："+pageNum+"显示条数是："+pageSize);
+            //1.引入分页插件,pageNum是第几页，pageSize是每页显示多少条,默认查询总数count
             PageHelper.startPage(pageNum,pageSize);
             //2.紧跟的查询就是一个分页查询-必须紧跟.后面的其他查询不会被分页，除非再次调用PageHelper.startPage
             try {
@@ -228,6 +230,7 @@ public class ExamController {
         TblUser sessionUser = (TblUser) request.getSession().getAttribute("user");
         TblPaper sessionPaper = (TblPaper) request.getSession().getAttribute("paper");
         int score = 0;
+        //判断是否有完成过单选题
         if(sessionPaper.getRadiotime()==null) {
 
             for (int i = 1; i <= 500; i++) {
@@ -237,7 +240,7 @@ public class ExamController {
                 exam = examService.selectByPrimaryKey(i);
                 if (exam == null) {
                     System.out.println("第" + i + "题不存在");
-
+                        //判断单选题并且是否可用
                 } else if (exam.getIsRadio().equals("单选")&&exam.getIsUse().equals("可用")&&exam.geteLevel().equals(sessionUser.getExamLevel())) {
                     if (exam.getAnswer().equals(answer)) {
                         //试卷+4分
@@ -292,6 +295,7 @@ public class ExamController {
         criteria.andIsUseEqualTo("可用");
         criteria.andELevelEqualTo(sessionUser.getExamLevel());
         List<TblExam> examList = examService.selectByExample(example);
+        //考题随机序列
         Collections.shuffle(examList);
 
         map.put("examList", examList);
@@ -323,7 +327,7 @@ public class ExamController {
                     for (int j = 0; j < answers.length; j++) {
                         answer += answers[j];
                     }
-
+                        //判断多选题是否可用
                     if (exam.getIsRadio().equals("多选")&&exam.getIsUse().equals("可用")&&exam.geteLevel().equals(sessionUser.getExamLevel())) {
                         if (exam.getAnswer().equals(answer)) {
                             //试卷+4分
@@ -358,6 +362,7 @@ public class ExamController {
         }else{
             return "examOver";
         }
+        //加上单选题的得分
         score+=sessionPaper.getMark();
         TblExamExample example = new TblExamExample();
         TblExamExample.Criteria criteria = example.createCriteria();
