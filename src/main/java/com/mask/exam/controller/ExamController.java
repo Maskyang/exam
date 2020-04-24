@@ -470,7 +470,7 @@ public class ExamController {
 
     //修改试题
     @RequestMapping("/filter/editExam")
-    public String editExam(TblExam exam, HttpServletRequest request,Map<String, Object> map) {
+    public String editExam(TblExam exam, HttpServletRequest request,Map<String, Object> map,String pageNum) {
         TblUser sessionUser = (TblUser) request.getSession().getAttribute("user");
 
         if(sessionUser.getUserCode().equals("m02")){
@@ -479,7 +479,7 @@ public class ExamController {
                 exam.setAnswer(answer);
                 exam.setUserId(sessionUser.getUserId());
                 examService.updateByPrimaryKey(exam);
-                return "redirect:/filter/examManage";
+                return "redirect:/filter/examManage?pageNum="+pageNum;
             }else{
                 map.put("ErrMsg", "答案不能为空!");
 
