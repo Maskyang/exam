@@ -178,6 +178,10 @@ public class ExamController {
             }
             if(pageSize == null){
                 pageSize = 10;    //设置默认每页显示的数据数
+            }if( paperList.size() == 0){
+                map.put("ErrMsg","别搞事情！没考试别看!");
+                return "error";
+
             }
             logger.info("当前页是："+pageNum+"显示条数是："+pageSize);
             //1.引入分页插件,pageNum是第几页，pageSize是每页显示多少条,默认查询总数count
@@ -388,9 +392,14 @@ public class ExamController {
 
     //试卷管理页面加分页查询
     @RequestMapping("/filter/examManage")
-    public String examManage(Map<String, Object> map, Model model,
+    public String examManage(Map<String, Object> map, Model model,HttpServletRequest request,
                              @RequestParam(required = false,defaultValue="1",value="pageNum")Integer pageNum,
                              @RequestParam(defaultValue="10",value="pageSize")Integer pageSize) {
+        TblUser sessionUser = (TblUser) request.getSession().getAttribute("user");
+        if(!sessionUser.getUserCode().equals("m02")){
+            map.put("ErrMsg","抱歉，您没权限看");
+            return "error";
+        }
         //为了程序的严谨性，判断非空：
         if(pageNum == null){
             pageNum = 1;   //设置默认当前页
