@@ -237,7 +237,7 @@ public class ExamController {
         //判断是否有完成过单选题
         if(sessionPaper.getRadiotime()==null) {
 
-            for (int i = 1; i <= 1500; i++) {
+            for (int i = 1; i <= 10000; i++) {
                 //获取examid对应的值,即获取用户当前一题填的答案
                 String answer = request.getParameter("exam_" + i);
                 //查询id对应的真实answer
@@ -317,7 +317,7 @@ public class ExamController {
         //先判断是否有完成时间，有直接跳转成绩页面
         if(sessionPaper.getEndtime()==null) {
 
-            for (int i = 1; i <= 1500; i++) {
+            for (int i = 1; i <= 10000; i++) {
                 //获取examid对应的值,即获取用户当前一题填的答案
                 String[] answers = request.getParameterValues("exam_" + i);
                 String answer = "";

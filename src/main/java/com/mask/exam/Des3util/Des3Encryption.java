@@ -27,11 +27,11 @@ public class Des3Encryption {
 
 	public static void main(String[] args) throws UnsupportedEncodingException {
 		//System.out.println(Des3Encryption.decode("sv0MZSKWy7AaHRIESbr0nbrj", "16864110548832799"));
-		String dataCode = "H+H8VoEuM6U63gNDpZhHxp1EPJ7L7afuEkeErufmqMr5Kngbw7eJP/yMCUJ0Y0PkWvaqzTWEe6oKwuGO+R7fFX1GwcvRPhpGAEe3SimrNpL37ZijsO1U13guWvljDYYSfUbBy9E+GkYAR7dKKas2ksh51r9eNGONejIBRIOO5KRp/pvC13mdz0IyuKrSiiU9xzBNLOh6xqFw6HjC0/TGmHoyAUSDjuSkSPjEItSMKmLEr7jmj40tt5aeFlwoYd82d1gH5kFYgrqNtPfZQHjytApxYdX5XQecTltnXeySMTIz8PTJL+zhpDtKdgi1VQ3WWcvZG5OC/8KhLu7a5DRpSHS4aSigJETS0YLTBh4/2eW6BPAY5D1TnRYqH7+syqUYdLhpKKAkRNIRg/Ls3ZojDJB0wxchTfKeiFQPpAgVvhOXZnsqzniNlzcWYwCSd2QDT/Sqx/VjtVFVcrptibOvYB4Wm+p1QpV2vPMptgPUmNRUUnBDggo5phf2nsgROx9HJHuwbsL+uduALuiP+fsMUHZPUIKBOpuieyHJOZ2pC44bRWtQY73zLP0Z8wqEA2Wvlg1B0pFEvLgX9p7IETsfR8NhWl3Hz3W25GlEmJ/4r46GE1e4h/szVg==";
-		String end = Des3Encryption.encode("PZkmZDPDFgGJdp1T9Mr6SBL3", dataCode);
+		String dataCode = "{\"orderNo\":\"\", \"merchantNo\":\"c10000213\"}";
+		String end = Des3Encryption.encode("J68yys6TYv5YNHTMtZrZnIa5", dataCode);
+		System.out.println(end);
 
-
-		System.out.println(Des3Encryption.decode("PZkmZDPDFgGJdp1T9Mr6SBL3", dataCode));
+		System.out.println(Des3Encryption.decode("J68yys6TYv5YNHTMtZrZnIa5", end));
 	}
 
 	public static byte[] decode(byte[] key, byte[] value) throws Exception {
